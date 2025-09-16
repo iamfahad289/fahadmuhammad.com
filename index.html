@@ -1,46 +1,56 @@
-:root{--bg:#0b0f17;--card:#111827;--muted:#9ca3af;--text:#e5e7eb;--accent:#4f46e5;--accent-2:#06b6d4;--border:#1f2937;--link:#a5b4fc}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica Neue,Arial;line-height:1.55;color:var(--text);background:radial-gradient(1000px 600px at 10% -10%,rgba(79,70,229,.15),transparent 60%),radial-gradient(800px 500px at 100% 0%,rgba(6,182,212,.12),transparent 50%),var(--bg)}
-a{color:var(--link);text-decoration:none}
-a:hover{text-decoration:underline}
-.container{max-width:1080px;margin:0 auto;padding:0 20px}
-header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(12px);background:rgba(11,15,23,.6);border-bottom:1px solid var(--border)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{font-weight:800;letter-spacing:.4px}
-.brand span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.nav a{margin-left:18px;color:var(--muted);font-size:.95rem}
-.nav a:hover{color:var(--text)}
-.hero{padding:72px 0 40px;display:grid;grid-template-columns:1fr;gap:18px}
-.title{font-size:clamp(34px,6vw,54px);line-height:1.05;font-weight:800}
-.subtitle{color:var(--muted);font-size:clamp(16px,2.2vw,18px);max-width:820px}
-.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:#0e1420;color:var(--text);font-weight:600}
-.btn.primary{border-color:transparent;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff}
-.btn:hover{filter:brightness(1.1);text-decoration:none}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
-.stat{border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(0,0,0,0));padding:14px 16px;border-radius:14px}
-.stat .n{font-size:22px;font-weight:800}
-.stat .k{color:var(--muted);font-size:13px;letter-spacing:.2px}
-section{padding:40px 0}
-.section-title{font-size:20px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-.cards{display:grid;grid-template-columns:1fr;gap:14px}
-.card{border:1px solid var(--border);background:var(--card);border-radius:16px;padding:18px}
-.card h3{margin:0 0 6px;font-size:20px}
-.card p{margin:8px 0 0;color:var(--muted)}
-.tagline{margin-top:6px;font-size:14px;color:var(--muted)}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.tag{font-size:12px;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:var(--muted)}
-.grid-2{display:grid;grid-template-columns:1fr;gap:14px}
-.list{display:grid;gap:10px}
-.list-item{border:1px solid var(--border);border-radius:12px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,0))}
-.list-item a{font-weight:600}
-.list-item .meta{color:var(--muted);font-size:14px;margin-top:4px}
-.contact{display:grid;grid-template-columns:1fr;gap:14px}
-footer{padding:32px 0 60px;color:var(--muted);border-top:1px solid var(--border);margin-top:30px}
-.avatar{width:100%;height:auto;border-radius:16px;object-fit:cover;border:1px solid var(--border)}
-.profile-pic{border-radius:18px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,0));border:1px solid var(--border)}
-.timeline{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:10px}
-.timeline li{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,0))}
-.timeline .meta{color:var(--muted);font-size:14px;margin-top:4px}
-@media(min-width:860px){.hero{grid-template-columns:1.2fr .8fr;align-items:center}.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muhammad Fahad — Robotics Researcher</title>
+<meta name="description" content="Robotics researcher focused on outdoor perception, VIO, and uncertainty‑aware planning.">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/assets/site.css">
+<meta property="og:title" content="Muhammad Fahad — Robotics Researcher"><meta property="og:type" content="website"><meta property="og:url" content="https://fahadmuhammad.com/"><meta property="og:image" content="https://fahadmuhammad.com/og-image.jpg"><meta property="og:description" content="Robotics researcher focused on outdoor perception, VIO, and uncertainty‑aware planning.">
+<link rel="canonical" href="https://fahadmuhammad.com/">
+</head><body>
+<header><div class="container nav"><div class="brand">Muhammad <span>Fahad</span></div>
+<nav>
+  <a href="/about.html">About</a>
+  <a href="/research.html">Research</a>
+  <a href="/projects.html">Projects</a>
+  <a href="/publications.html">Publications</a>
+  <a href="/press.html">Press</a>
+  <a href="/contact.html">Contact</a>
+</nav></div></header>
+<main class="container">
+<section class="hero">
+  <div>
+    <h1 class="title">Robotics Researcher</h1>
+    <p class="subtitle">Outdoor perception, visual–inertial odometry, and uncertainty‑aware planning. I build systems that work outside every day, not just on demo day.</p>
+    <div class="cta">
+      <a class="btn primary" href="/cv.pdf" target="_blank" rel="noopener">Download CV</a>
+      <a class="btn" href="mailto:hi@fahadmuhammad.com">Email</a>
+      <a class="btn" href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+      <a class="btn" href="https://github.com/iamfahad289" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/iamfahadusa/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">3.94</div><div class="k">Graduate GPA</div></div>
+      <div class="stat"><div class="n">11</div><div class="k">Publications</div></div>
+      <div class="stat"><div class="n">166</div><div class="k">Citations</div></div>
+    </div>
+  </div>
+  <div>
+    <div class="profile-pic"><img class="avatar" src="/assets/images/profile.jpg" alt="Muhammad Fahad"></div>
+    <div class="card" style="margin-top:14px"><h3>Focus</h3><p class="tagline">Dependable outdoor autonomy</p>
+      <div class="tags"><span class="tag">Perception</span><span class="tag">VIO</span><span class="tag">Sensor fusion</span><span class="tag">Planning</span><span class="tag">ROS</span><span class="tag">Python • C++</span></div>
+    </div>
+    <div class="card" style="margin-top:14px"><h3>Current</h3><p>Crosswalk perception dataset and evaluation toolkit with panoramic video and RTK ground truth. Self‑supervised VIO with calibrated uncertainty for planners. 1/10 scale autonomy loops.</p></div>
+  </div>
+</section>
+<section>
+  <div class="section-title">Explore</div>
+  <div class="cards">
+    <a class="card" href="/about.html"><h3>About & Skills</h3><p>Background, skills, and areas I care about.</p></a>
+    <a class="card" href="/research.html"><h3>Research</h3><p>Perception datasets, VIO, uncertainty for planners.</p></a>
+    <a class="card" href="/projects.html"><h3>Projects</h3><p>Benchmarks, toolkits, and open-source bits.</p></a>
+  </div>
+</section>
+</main>
+<footer><div class="container">© <span id="y"></span> Muhammad Fahad. Built with care and shipped reproducible.</div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
