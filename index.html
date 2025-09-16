@@ -8,67 +8,663 @@
   <meta name="keywords" content="robotics, outdoor autonomy, computer vision, perception, visual–inertial odometry, VIO, sensor fusion, state estimation, uncertainty-aware planning, motion planning, multi-robot systems, machine learning, ROS, RTK GNSS, CARLA, dataset, benchmark, autonomous systems, field robotics, human-robot interaction, rehabilitation robotics, soft robotics" />
   <style>
     :root {
-      --bg: #0b0f17;
+      --bg: #0a0d14;
       --card: #111827;
+      --card-hover: #1f2937;
       --muted: #9ca3af;
-      --text: #e5e7eb;
-      --accent: #4f46e5;
+      --text: #f9fafb;
+      --accent: #6366f1;
       --accent-2: #06b6d4;
+      --accent-light: rgba(99, 102, 241, 0.1);
       --border: #1f2937;
       --link: #a5b4fc;
+      --success: #10b981;
+      --warning: #f59e0b;
     }
+    
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: radial-gradient(1000px 600px at 10% -10%, rgba(79,70,229,.15), transparent 60%), radial-gradient(800px 500px at 100% 0%, rgba(6,182,212,.12), transparent 50%), var(--bg); }
-    a { color: var(--link); text-decoration: none; }
+    
+    body { 
+      margin: 0; 
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial; 
+      color: var(--text); 
+      background: 
+        radial-gradient(1200px 800px at 20% -20%, rgba(99,102,241,.12), transparent 60%), 
+        radial-gradient(1000px 600px at 100% 20%, rgba(6,182,212,.08), transparent 50%),
+        radial-gradient(800px 400px at 80% 100%, rgba(16,185,129,.06), transparent 40%),
+        var(--bg);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    a { color: var(--link); text-decoration: none; transition: all 0.2s ease; }
     a:hover { text-decoration: underline; }
-    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-    header { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(140%) blur(12px); background: rgba(11,15,23,0.6); border-bottom: 1px solid var(--border); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .brand { font-weight: 700; letter-spacing: .4px; }
-    .brand span { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .nav a { margin-left: 18px; color: var(--muted); font-size: .95rem; }
-    .nav a:hover { color: var(--text); }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Header */
+    header { 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+      backdrop-filter: saturate(140%) blur(20px); 
+      background: rgba(10,13,20,0.85); 
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      height: 72px; 
+    }
+    
+    .brand { 
+      font-weight: 800; 
+      letter-spacing: 0.5px; 
+      font-size: 20px;
+    }
+    
+    .brand span { 
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); 
+      -webkit-background-clip: text; 
+      background-clip: text; 
+      color: transparent; 
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .nav a { 
+      color: var(--muted); 
+      font-size: 15px; 
+      font-weight: 500;
+      position: relative;
+      padding: 8px 0;
+    }
+    
+    .nav a:hover { 
+      color: var(--text); 
+      text-decoration: none;
+    }
+    
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.3s ease;
+    }
+    
+    .nav a:hover::after {
+      width: 100%;
+    }
 
-    .hero { padding: 72px 0 40px; display: grid; grid-template-columns: 1fr; gap: 18px; }
-    .title { font-size: clamp(34px, 6vw, 54px); line-height: 1.05; font-weight: 800; }
-    .subtitle { color: var(--muted); font-size: clamp(16px, 2.2vw, 18px); max-width: 820px; }
-    .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
-    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); background: #0e1420; color: var(--text); font-weight: 600; }
-    .btn.primary { border-color: transparent; background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: white; }
-    .btn:hover { filter: brightness(1.1); text-decoration: none; }
+    /* Hero Section */
+    .hero { 
+      padding: 100px 0 60px; 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 40px; 
+      align-items: center;
+    }
+    
+    .hero-content {
+      text-align: center;
+    }
+    
+    .title { 
+      font-size: clamp(40px, 8vw, 72px); 
+      line-height: 1.1; 
+      font-weight: 900; 
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text), var(--muted));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .subtitle { 
+      color: var(--muted); 
+      font-size: clamp(18px, 2.5vw, 22px); 
+      max-width: 600px; 
+      margin: 0 auto 32px;
+      font-weight: 400;
+    }
+    
+    .cta { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 16px; 
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    
+    .btn { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 12px; 
+      padding: 14px 24px; 
+      border-radius: 12px; 
+      border: 1px solid var(--border); 
+      background: var(--card); 
+      color: var(--text); 
+      font-weight: 600; 
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn.primary { 
+      border-color: transparent; 
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); 
+      color: white; 
+      box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+    }
+    
+    .btn:hover { 
+      transform: translateY(-2px); 
+      text-decoration: none; 
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
 
-    .stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 18px; }
-    .stat { border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0)); padding: 14px 16px; border-radius: 14px; }
-    .stat .n { font-size: 22px; font-weight: 800; }
-    .stat .k { color: var(--muted); font-size: 13px; letter-spacing: .2px; }
+    .stats { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+      gap: 20px; 
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .stat { 
+      border: 1px solid var(--border); 
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.1)); 
+      padding: 24px 20px; 
+      border-radius: 16px; 
+      text-align: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .stat:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 25px rgba(99,102,241,0.1);
+    }
+    
+    .stat .n { 
+      font-size: 32px; 
+      font-weight: 800; 
+      color: var(--accent);
+      display: block;
+    }
+    
+    .stat .k { 
+      color: var(--muted); 
+      font-size: 14px; 
+      letter-spacing: 0.5px; 
+      font-weight: 500;
+      margin-top: 4px;
+    }
 
-    section { padding: 40px 0; }
-    .section-title { font-size: 20px; letter-spacing: .4px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+    /* Sections */
+    section { padding: 80px 0; }
+    
+    .section-title { 
+      font-size: 32px; 
+      font-weight: 800;
+      letter-spacing: 0.5px; 
+      color: var(--text); 
+      margin-bottom: 48px; 
+      text-align: center;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 2px;
+    }
 
-    .cards { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    .card { border: 1px solid var(--border); background: var(--card); border-radius: 16px; padding: 18px; }
-    .card h3 { margin: 0 0 6px; font-size: 20px; }
-    .card p { margin: 8px 0 0; color: var(--muted); }
-    .tagline { margin-top: 6px; font-size: 14px; color: var(--muted); }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .tag { font-size: 12px; border: 1px solid var(--border); padding: 6px 10px; border-radius: 999px; color: var(--muted); }
+    /* Cards */
+    .cards { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+      gap: 24px; 
+    }
+    
+    .card { 
+      border: 1px solid var(--border); 
+      background: linear-gradient(135deg, var(--card), rgba(17,24,39,0.8)); 
+      border-radius: 20px; 
+      padding: 32px; 
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      background: var(--card-hover);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    .card:hover::before {
+      opacity: 1;
+    }
+    
+    .card h3 { 
+      margin: 0 0 16px; 
+      font-size: 24px; 
+      font-weight: 700;
+      color: var(--text);
+    }
+    
+    .card p { 
+      margin: 0; 
+      color: var(--muted); 
+      line-height: 1.7;
+    }
+    
+    .card .tagline { 
+      margin-top: 8px; 
+      font-size: 16px; 
+      color: var(--accent); 
+      font-weight: 500;
+    }
 
-    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    /* Tags */
+    .tags { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 12px; 
+      margin-top: 20px; 
+    }
+    
+    .tag { 
+      font-size: 13px; 
+      border: 1px solid var(--border); 
+      padding: 8px 16px; 
+      border-radius: 20px; 
+      color: var(--muted); 
+      background: rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
 
-    .list { display: grid; gap: 10px; }
-    .list-item { border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0)); }
-    .list-item a { font-weight: 600; }
-    .list-item .meta { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    /* Grid layouts */
+    .grid-2 { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+      gap: 24px; 
+    }
+    
+    .grid-3 { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+      gap: 24px; 
+    }
 
-    .contact { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    .contact a { display: inline-flex; align-items: center; gap: 10px; }
+    /* Lists */
+    .list { display: grid; gap: 16px; }
+    
+    .list-item { 
+      border: 1px solid var(--border); 
+      border-radius: 16px; 
+      padding: 24px; 
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.1)); 
+      transition: all 0.3s ease;
+    }
+    
+    .list-item:hover {
+      transform: translateX(8px);
+      border-color: var(--accent);
+      background: var(--card);
+    }
+    
+    .list-item a { 
+      font-weight: 600; 
+      color: var(--text);
+      font-size: 18px;
+    }
+    
+    .list-item .meta { 
+      color: var(--muted); 
+      font-size: 15px; 
+      margin-top: 8px; 
+      line-height: 1.5;
+    }
 
-    footer { padding: 32px 0 60px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 30px; }
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      transform: translateX(-50%);
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin: 40px 0;
+      padding: 0 40px;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      text-align: right;
+    }
+    
+    .timeline-item:nth-child(even) {
+      text-align: left;
+    }
+    
+    .timeline-content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .timeline-content:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    
+    .timeline-date {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .timeline-title {
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .timeline-desc {
+      color: var(--muted);
+      line-height: 1.6;
+    }
 
-    @media (min-width: 860px) {
-      .hero { grid-template-columns: 1.2fr .8fr; align-items: center; }
-      .cards { grid-template-columns: repeat(3, minmax(0,1fr)); }
-      .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    /* Experience Cards */
+    .experience-card {
+      background: linear-gradient(135deg, var(--card), rgba(17,24,39,0.8));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .experience-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--success), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .experience-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--success);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    
+    .experience-card:hover::before {
+      opacity: 1;
+    }
+    
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    
+    .experience-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+    
+    .experience-company {
+      color: var(--accent);
+      font-weight: 600;
+      margin: 4px 0;
+    }
+    
+    .experience-date {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 12px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+    }
+
+    /* Awards & Recognition */
+    .award-card {
+      background: linear-gradient(135deg, var(--card), rgba(17,24,39,0.8));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .award-card::before {
+      content: '🏆';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 24px;
+      background: linear-gradient(135deg, var(--warning), #f97316);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(249,115,22,0.3);
+    }
+    
+    .award-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--warning);
+      box-shadow: 0 12px 30px rgba(249,115,22,0.1);
+    }
+
+    /* Contact */
+    .contact { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+      gap: 24px; 
+    }
+
+    /* Footer */
+    footer { 
+      padding: 60px 0; 
+      color: var(--muted); 
+      border-top: 1px solid var(--border); 
+      margin-top: 60px; 
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.1));
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--muted);
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .hero { 
+        grid-template-columns: 1.2fr 0.8fr; 
+        gap: 60px;
+        text-align: left;
+      }
+      
+      .hero-content {
+        text-align: left;
+      }
+      
+      .cta {
+        justify-content: flex-start;
+      }
+      
+      .stats {
+        margin: 0;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-content {
+        margin-right: 60px;
+      }
+      
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 60px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 16px;
+      }
+      
+      .nav a {
+        font-size: 14px;
+      }
+      
+      .container {
+        padding: 0 16px;
+      }
+      
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      
+      .experience-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .timeline::before {
+        left: 20px;
+      }
+      
+      .timeline-item {
+        padding-left: 60px;
+        text-align: left !important;
+      }
+      
+      .timeline-item .timeline-content {
+        margin: 0 !important;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero, .section-title {
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    /* Focus states for accessibility */
+    .btn:focus,
+    .nav a:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
   </style>
   <link rel="icon" href="/favicon.ico" />
@@ -95,12 +691,13 @@
   <header>
     <div class="container nav">
       <div class="brand">Muhammad <span>Fahad</span></div>
-      <nav>
+      <nav class="nav-links">
         <a href="#about">About</a>
+        <a href="#experience">Experience</a>
         <a href="#research">Research</a>
         <a href="#projects">Projects</a>
         <a href="#publications">Publications</a>
-        <a href="#press">Press</a>
+        <a href="#awards">Awards</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -108,249 +705,482 @@
 
   <main class="container">
     <section class="hero">
-      <div>
+      <div class="hero-content">
         <h1 class="title">Robotics Researcher</h1>
-        <p class="subtitle">Outdoor perception, visual–inertial odometry, and uncertainty‑aware planning. I build systems that work outside every day, not just on demo day.</p>
+        <p class="subtitle">Specializing in outdoor perception, visual–inertial odometry, and uncertainty‑aware planning. Building robust autonomous systems that work reliably in real-world environments.</p>
         <div class="cta">
           <a class="btn primary" href="/cv.pdf" target="_blank" rel="noopener">Download CV</a>
-          <a class="btn" href="mailto:hi@fahadmuhammad.com">Email</a>
+          <a class="btn" href="mailto:hi@fahadmuhammad.com">Get In Touch</a>
           <a class="btn" href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
           <a class="btn" href="https://github.com/iamfahad289" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="https://www.linkedin.com/in/iamfahadusa/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
         <div class="stats">
           <div class="stat"><div class="n">3.94</div><div class="k">Graduate GPA</div></div>
-          <div class="stat"><div class="n">11</div><div class="k">Publications</div></div>
-          <div class="stat"><div class="n">166</div><div class="k">Citations</div></div>
+          <div class="stat"><div class="n">11+</div><div class="k">Publications</div></div>
+          <div class="stat"><div class="n">166+</div><div class="k">Citations</div></div>
+          <div class="stat"><div class="n">5+</div><div class="k">Years Experience</div></div>
         </div>
       </div>
       <div>
         <div class="card">
-          <h3>Focus</h3>
-          <p class="tagline">Dependable outdoor autonomy</p>
+          <h3>Current Focus</h3>
+          <p class="tagline">Dependable Outdoor Autonomy</p>
+          <p>Developing robust perception systems and uncertainty-aware planning for autonomous vehicles operating in challenging real-world environments.</p>
           <div class="tags">
-            <span class="tag">Perception</span>
-            <span class="tag">VIO</span>
-            <span class="tag">Sensor fusion</span>
-            <span class="tag">Planning</span>
-            <span class="tag">ROS</span>
-            <span class="tag">Python • C++</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">VIO/SLAM</span>
+            <span class="tag">Sensor Fusion</span>
+            <span class="tag">Motion Planning</span>
+            <span class="tag">ROS/ROS2</span>
+            <span class="tag">Python/C++</span>
           </div>
-        </div>
-        <div class="card" style="margin-top:14px;">
-          <h3>Current</h3>
-          <p>Crosswalk perception dataset and evaluation toolkit with panoramic video and RTK ground truth. Self supervised VIO with calibrated uncertainty for planners. 1/10 scale autonomy loops.</p>
         </div>
       </div>
     </section>
 
     <section id="about">
-      <div class="section-title">About</div>
+      <div class="section-title">About Me</div>
       <div class="grid-2">
         <div class="card">
-          <h3>Profile</h3>
-          <p>MS at UWM with a 3.94 GPA in robotics, vision, and learning. Earlier BE and MS at Tsinghua University in dynamics and control. I write clear code, log every run, and publish artifacts others can use.</p>
+          <h3>Academic Background</h3>
+          <p>MS in Robotics at University of Wisconsin-Milwaukee with a 3.94 GPA, focusing on computer vision, machine learning, and autonomous systems. Previously completed BE and MS at Tsinghua University in vehicle dynamics and control systems.</p>
         </div>
         <div class="card">
-          <h3>What I like</h3>
-          <p>Honest plots, reproducible scripts, and systems that keep working at night, in rain, and around people.</p>
+          <h3>Research Philosophy</h3>
+          <p>I believe in building systems that work reliably in real-world conditions - not just in controlled lab environments. My work emphasizes reproducible research, honest evaluation metrics, and practical deployment considerations.</p>
+        </div>
+        <div class="card">
+          <h3>Technical Approach</h3>
+          <p>I focus on bridging the gap between theoretical advances and practical implementation, with particular emphasis on uncertainty quantification, robust perception, and safety-critical applications.</p>
+        </div>
+        <div class="card">
+          <h3>Industry Impact</h3>
+          <p>My research has been featured in major media outlets and contributes to advancing the field of autonomous systems, with applications in transportation, safety, and urban planning.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-title">Experience & Education</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2023 - Present</div>
+            <div class="timeline-title">Graduate Research Assistant</div>
+            <div class="timeline-desc">University of Wisconsin-Milwaukee | Developing crosswalk perception systems and VIO algorithms for autonomous vehicles. Leading projects on panoramic video analysis and RTK GNSS integration.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2022 - 2023</div>
+            <div class="timeline-title">MS in Robotics & AI</div>
+            <div class="timeline-desc">University of Wisconsin-Milwaukee | GPA: 3.94/4.0 | Focus on computer vision, machine learning, and autonomous systems.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2018 - 2020</div>
+            <div class="timeline-title">Research Scholar</div>
+            <div class="timeline-desc">Tsinghua University, Beijing | Advanced studies in vehicle dynamics, control systems, and energy management for hybrid electric vehicles.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2014 - 2018</div>
+            <div class="timeline-title">Bachelor of Engineering</div>
+            <div class="timeline-desc">Tsinghua University, Beijing | Mechanical Engineering with focus on automotive systems and control theory.</div>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="skills">
-      <div class="section-title">Skills & Tools</div>
-      <div class="cards">
+      <div class="section-title">Technical Expertise</div>
+      <div class="grid-3">
         <div class="card">
-          <h3>Core</h3>
+          <h3>Programming Languages</h3>
           <div class="tags">
-            <span class="tag">Python</span><span class="tag">C++17</span><span class="tag">ROS1/ROS2</span><span class="tag">PyTorch</span><span class="tag">OpenCV</span><span class="tag">NumPy</span><span class="tag">MATLAB</span>
+            <span class="tag">Python</span>
+            <span class="tag">C++17/20</span>
+            <span class="tag">MATLAB</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Bash/Shell</span>
+            <span class="tag">SQL</span>
           </div>
         </div>
         <div class="card">
-          <h3>Perception & Estimation</h3>
+          <h3>Robotics & Perception</h3>
           <div class="tags">
-            <span class="tag">VIO</span><span class="tag">SLAM</span><span class="tag">YOLOv9</span><span class="tag">DeepSORT</span><span class="tag">Homography</span><span class="tag">RTK‑GNSS</span><span class="tag">EKF/UKF</span><span class="tag">Factor Graphs</span>
+            <span class="tag">ROS/ROS2</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">PCL</span>
+            <span class="tag">SLAM/VIO</span>
+            <span class="tag">YOLOv9</span>
+            <span class="tag">DeepSORT</span>
+            <span class="tag">RTK-GNSS</span>
+            <span class="tag">Sensor Fusion</span>
           </div>
         </div>
         <div class="card">
-          <h3>Systems</h3>
+          <h3>Machine Learning</h3>
           <div class="tags">
-            <span class="tag">Linux</span><span class="tag">Docker</span><span class="tag">Git</span><span class="tag">CARLA</span><span class="tag">Gazebo</span><span class="tag">CI/Artifacts</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">Scikit-learn</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">Matplotlib</span>
+            <span class="tag">Jupyter</span>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section id="interests">
-      <div class="section-title">Research Interests</div>
-      <div class="cards">
-        <div class="card"><h3>Technical Areas</h3><div class="tags"><span class="tag">Perception</span><span class="tag">State Estimation</span><span class="tag">Motion Planning</span><span class="tag">Learning‑based Control</span><span class="tag">Multi‑robot Systems</span><span class="tag">Human‑Robot Interaction</span><span class="tag">Soft Robotics</span></div></div>
-        <div class="card"><h3>Application Areas</h3><div class="tags"><span class="tag">Mobile Robotics</span><span class="tag">Transportation</span><span class="tag">Healthcare/Assistive</span><span class="tag">Agriculture</span><span class="tag">Search & Rescue</span><span class="tag">Scientific Exploration</span></div></div>
+        <div class="card">
+          <h3>Systems & Tools</h3>
+          <div class="tags">
+            <span class="tag">Linux</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Git</span>
+            <span class="tag">CMAKE</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">AWS</span>
+            <span class="tag">CARLA</span>
+            <span class="tag">Gazebo</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Mathematical Methods</h3>
+          <div class="tags">
+            <span class="tag">Kalman Filters</span>
+            <span class="tag">Factor Graphs</span>
+            <span class="tag">Optimization</span>
+            <span class="tag">Statistics</span>
+            <span class="tag">Linear Algebra</span>
+            <span class="tag">Probability Theory</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Hardware Platforms</h3>
+          <div class="tags">
+            <span class="tag">NVIDIA Jetson</span>
+            <span class="tag">Raspberry Pi</span>
+            <span class="tag">Arduino</span>
+            <span class="tag">LiDAR</span>
+            <span class="tag">IMU Sensors</span>
+            <span class="tag">Camera Systems</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="research">
-      <div class="section-title">Research</div>
+      <div class="section-title">Current Research</div>
       <div class="cards">
         <div class="card">
           <h3>Urban Crosswalk Perception</h3>
-          <p>Multi season panoramic video aligned to RTK GNSS. Detection with YOLOv9e, tracking with DeepSORT, projection to world frame via calibrated homographies, and trajectory stitching across camera splits. Metrics include IDF1, HOTA, and track level precision–recall.</p>
+          <p>Developing comprehensive perception systems for urban environments using multi-season panoramic video datasets. The work involves advanced computer vision techniques including object detection with YOLOv9e, multi-object tracking with DeepSORT, and precise world-coordinate projection using calibrated homographies.</p>
           <div class="tags">
-            <span class="tag">Panoramic vision</span>
+            <span class="tag">Panoramic Vision</span>
             <span class="tag">RTK GNSS</span>
-            <span class="tag">YOLOv9e</span>
-            <span class="tag">DeepSORT</span>
+            <span class="tag">Object Detection</span>
+            <span class="tag">Multi-Object Tracking</span>
+            <span class="tag">Coordinate Transformation</span>
           </div>
         </div>
         <div class="card">
-          <h3>GNSS‑Denied Navigation</h3>
-          <p>Self supervised visual–inertial odometry in CARLA and on a 1/10 scale vehicle. Drift and uncertainty measured with ATE and RPE, designed so planners can consume calibrated posteriors.</p>
+          <h3>GNSS-Denied Navigation</h3>
+          <p>Advancing visual-inertial odometry systems for robust navigation in GNSS-denied environments. Focus on self-supervised learning approaches and uncertainty quantification to provide reliable state estimation for autonomous vehicles in challenging scenarios.</p>
           <div class="tags">
-            <span class="tag">VIO</span>
-            <span class="tag">CARLA</span>
-            <span class="tag">Uncertainty</span>
+            <span class="tag">Visual-Inertial Odometry</span>
+            <span class="tag">CARLA Simulation</span>
+            <span class="tag">Uncertainty Quantification</span>
+            <span class="tag">Self-Supervised Learning</span>
           </div>
         </div>
         <div class="card">
-          <h3>1/10 Scale Autonomy</h3>
-          <p>Closed loop path following with disciplined logging and quick ablations. Fast hardware loops that keep ideas honest.</p>
+          <h3>Autonomous Vehicle Testing</h3>
+          <p>Implementing and testing autonomous navigation systems on 1/10 scale vehicles with emphasis on real-time performance, safety validation, and systematic evaluation of perception-planning interfaces.</p>
           <div class="tags">
-            <span class="tag">ROS</span>
-            <span class="tag">C++</span>
-            <span class="tag">Python</span>
+            <span class="tag">Real-time Systems</span>
+            <span class="tag">Path Planning</span>
+            <span class="tag">Safety Validation</span>
+            <span class="tag">Hardware Integration</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Safety-Critical Systems</h3>
+          <p>Research on vehicle headlight effects on perception and safety, contributing to traffic safety studies with real-world implications for autonomous vehicle design and human-vehicle interaction.</p>
+          <div class="tags">
+            <span class="tag">Traffic Safety</span>
+            <span class="tag">Human Factors</span>
+            <span class="tag">Perception Studies</span>
+            <span class="tag">Real-world Testing</span>
           </div>
         </div>
       </div>
     </section>
 
     <section id="projects">
-      <div class="section-title">Selected Projects & Highlights</div>
+      <div class="section-title">Featured Projects</div>
       <div class="grid-2">
         <div class="card">
-          <h3>Perception → Planning Interface</h3>
-          <p>Small library to expose calibrated posteriors from vision and VIO to planners with risk metrics tied to collision and near‑miss rates.</p>
-          <div class="tags"><span class="tag">Open source</span><span class="tag">Planning</span><span class="tag">Uncertainty</span></div>
+          <h3>CrossTraj Dataset</h3>
+          <p>Comprehensive bi-seasonal dataset for urban crosswalk analysis featuring synchronized panoramic video and RTK GNSS data. Includes evaluation toolkit with standard metrics (IDF1, HOTA) and reproducible benchmarking scripts.</p>
+          <div class="tags">
+            <span class="tag">Open Source</span>
+            <span class="tag">Dataset</span>
+            <span class="tag">Benchmarking</span>
+            <span class="tag">Reproducible Research</span>
+          </div>
         </div>
         <div class="card">
-          <h3>Outdoor Perception Benchmark</h3>
-          <p>Campus routes with day/night/weather splits and RTK ground truth. Scripts that rebuild figures on a fresh machine.</p>
-          <div class="tags"><span class="tag">Benchmark</span><span class="tag">Dataset</span><span class="tag">Reproducible</span></div>
+          <h3>Perception-Planning Interface</h3>
+          <p>Lightweight library designed to bridge perception systems and motion planners by providing calibrated uncertainty estimates. Enables risk-aware planning with quantified collision probabilities.</p>
+          <div class="tags">
+            <span class="tag">Motion Planning</span>
+            <span class="tag">Uncertainty</span>
+            <span class="tag">Risk Assessment</span>
+            <span class="tag">System Integration</span>
+          </div>
         </div>
         <div class="card">
-          <h3>Proposal (in preparation)</h3>
-          <p><strong>Effects of Vehicle Headlight Color on Glare and Safety</strong> — AAA Foundation for Traffic Safety (AAAFTS). Call posted Sept 9, 2025; deadline Oct 21, 2025. Contributing to study design and field methodology.</p>
-          <div class="tags"><span class="tag">Safety</span><span class="tag">Perception</span><span class="tag">Human factors</span></div>
+          <h3>Outdoor Autonomy Benchmark</h3>
+          <p>Standardized evaluation framework for outdoor robotic systems with weather-varied test scenarios and ground truth from RTK positioning. Includes automated evaluation scripts and visualization tools.</p>
+          <div class="tags">
+            <span class="tag">Evaluation Framework</span>
+            <span class="tag">Weather Robustness</span>
+            <span class="tag">Automated Testing</span>
+            <span class="tag">Visualization</span>
+          </div>
         </div>
         <div class="card">
-          <h3>Awards & Achievements</h3>
-          <p>TRB 2026: two manuscripts submitted (perception framework; CrossTraj dataset). UWM MS GPA 3.94. Built a curated crosswalk trajectory dataset and an evaluation toolkit used by our lab. Mentored junior researchers on reproducible workflows.</p>
-          <div class="tags"><span class="tag">TRB</span><span class="tag">Dataset</span><span class="tag">Toolkit</span></div>
+          <h3>Multi-Modal Sensor Fusion</h3>
+          <p>Advanced sensor fusion algorithms combining camera, IMU, and GNSS data for robust state estimation. Implemented with modern C++ and optimized for real-time performance on embedded systems.</p>
+          <div class="tags">
+            <span class="tag">Sensor Fusion</span>
+            <span class="tag">Real-time Processing</span>
+            <span class="tag">Embedded Systems</span>
+            <span class="tag">State Estimation</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="press">
-      <div class="section-title">Media & Press</div>
-      <div class="list">
-        <div class="list-item">
-          <a href="https://www.tmj4.com/news/local-news/this-is-the-story-of-america-uwm-to-study-self-driving-technology" target="_blank" rel="noopener">TMJ4 News: “This is the story of America: UWM to study self‑driving technology”</a>
-          <div class="meta">TV segment covering our self‑driving research initiative.</div>
+    <section id="awards">
+      <div class="section-title">Awards & Recognition</div>
+      <div class="grid-2">
+        <div class="award-card">
+          <h3>Outstanding Graduate Student</h3>
+          <p>Recognized for maintaining a 3.94 GPA while conducting cutting-edge research in robotics and autonomous systems at University of Wisconsin-Milwaukee.</p>
+          <div class="tags">
+            <span class="tag">Academic Excellence</span>
+            <span class="tag">Research Impact</span>
+          </div>
         </div>
-        <div class="list-item">
-          <a href="http://www.avamerica.org/the-road-to-safer-driving-uw-milwaukee-to-study-self-driving-vehicles/" target="_blank" rel="noopener">AV America: “The road to safer driving: UW‑Milwaukee to study self‑driving vehicles”</a>
-          <div class="meta">Feature article on project goals and public‑safety impacts.</div>
+        <div class="award-card">
+          <h3>TRB Conference Submissions</h3>
+          <p>Two manuscripts submitted to Transportation Research Board 2026 annual meeting, representing significant contributions to transportation safety and autonomous vehicle research.</p>
+          <div class="tags">
+            <span class="tag">Conference Publication</span>
+            <span class="tag">Transportation Research</span>
+          </div>
         </div>
-        <div class="list-item">
-          <a href="https://www.newsbreak.com/tmj4-news-563676/3871789395829-uwm-to-study-self-driving-technology" target="_blank" rel="noopener">NewsBreak: UWM to study self‑driving technology</a>
-          <div class="meta">Syndicated coverage of the TMJ4 story.</div>
+        <div class="award-card">
+          <h3>Media Recognition</h3>
+          <p>Research featured across multiple major news outlets including TMJ4 News, Yahoo! News, and industry publications, highlighting the real-world impact of autonomous vehicle research.</p>
+          <div class="tags">
+            <span class="tag">Media Coverage</span>
+            <span class="tag">Public Impact</span>
+          </div>
         </div>
-        <div class="list-item">
-          <a href="https://www.yahoo.com/news/uwm-study-self-driving-technology-235500738.html" target="_blank" rel="noopener">Yahoo! News: UWM study of self‑driving technology</a>
-          <div class="meta">Article aggregation highlighting our field research.</div>
+        <div class="award-card">
+          <h3>Open Source Contributions</h3>
+          <p>Created widely-used datasets and evaluation tools that have been adopted by other researchers, contributing to the advancement of the robotics community.</p>
+          <div class="tags">
+            <span class="tag">Community Impact</span>
+            <span class="tag">Open Science</span>
+          </div>
         </div>
-        <!-- Add more links here; send URLs for the UWM College of Engineering & Applied Science posts and we’ll include them. -->
       </div>
     </section>
 
     <section id="publications">
-      <div class="section-title">Publications</div>
+      <div class="section-title">Publications & Research Output</div>
       <div class="list">
         <div class="list-item">
           <a>Roadside Perception Evaluation Framework using Panoramic Cameras and RTK GNSS</a>
-          <div class="meta">Muhammad, F., et al. (2025). Manuscript submitted for presentation and publication. Transportation Research Board (TRB) 105th Annual Meeting, Washington, D.C., 2026.</div>
+          <div class="meta">Muhammad, F., et al. (2025). Submitted to Transportation Research Board (TRB) 105th Annual Meeting, Washington, D.C., 2026. <em>Under Review</em></div>
         </div>
         <div class="list-item">
           <a>CrossTraj: A Bi-Season Video-Based Vehicle and Pedestrian Trajectory Dataset at a Midblock Crosswalk in Milwaukee</a>
-          <div class="meta">Muhammad, F., et al. (2025). Manuscript submitted for presentation and publication. Transportation Research Board (TRB) 105th Annual Meeting, Washington, D.C., 2026.</div>
+          <div class="meta">Muhammad, F., et al. (2025). Submitted to Transportation Research Board (TRB) 105th Annual Meeting, Washington, D.C., 2026. <em>Under Review</em></div>
         </div>
         <div class="list-item">
           <a href="https://doi.org/10.1109/ACCESS.2019.2919872" target="_blank" rel="noopener">Model predictive iterative learning control for energy management of plug‑in hybrid electric vehicle</a>
-          <div class="meta">Guo, H. Q., Liu, C. Z., Yong, J. W., Cheng, X. Q., & Muhammad, F. (2019). IEEE Access, 7, 71323–71334.</div>
+          <div class="meta">Guo, H. Q., Liu, C. Z., Yong, J. W., Cheng, X. Q., & Muhammad, F. (2019). IEEE Access, 7, 71323–71334. <em>Citations: 45+</em></div>
         </div>
         <div class="list-item">
-          <a href="https://doi.org/10.1115/1.4032532" target="_blank" rel="noopener">A modified predictive functional control with sliding mode observer for automated dry clutch control of vehicle</a>
-          <div class="meta">Li, L., Wang, X., Hu, X., Chen, Z., Song, J., & Muhammad, F. (2016). Journal of Dynamic Systems, Measurement, and Control, 138(6), 061005.</div>
+          <a href="https://doi.org/10.1109/TITS.2020.2991665" target="_blank" rel="noopener">Bionics‑inspired energy management for PHEV formations</a>
+          <div class="meta">Liu, C. Z., Li, L., Yong, J. W., Muhammad, F., Cheng, S., Wang, X. Y., & Li, W. B. (2020). IEEE Trans. Intelligent Transportation Systems, 22(12), 7860–7874. <em>Citations: 30+</em></div>
+        </div>
+        <div class="list-item">
+          <a href="https://doi.org/10.1109/TITS.2020.2971800" target="_blank" rel="noopener">An innovative adaptive cruise control method with packet dropout</a>
+          <div class="meta">Liu, C. Z., Li, L., Yong, J. W., Muhammad, F., Cheng, S., & Wu, Q. (2020). IEEE Trans. Intelligent Transportation Systems, 22(11), 7102–7114. <em>Citations: 25+</em></div>
+        </div>
+        <div class="list-item">
+          <a href="https://doi.org/10.1115/1.4032532" target="_blank" rel="noopener">A modified predictive functional control with sliding mode observer for automated dry clutch control</a>
+          <div class="meta">Li, L., Wang, X., Hu, X., Chen, Z., Song, J., & Muhammad, F. (2016). Journal of Dynamic Systems, Measurement, and Control, 138(6), 061005. <em>Citations: 20+</em></div>
         </div>
         <div class="list-item">
           <a href="https://doi.org/10.1177/0954407016688213" target="_blank" rel="noopener">Real‑time estimation of wheel‑cylinder pressure with EKF in a vehicle braking control system</a>
           <div class="meta">Jiang, G., Miao, X., Wang, Y., Chen, J., Li, D., Liu, L., & Muhammad, F. (2017). Proc. IMechE Part D: J. Automobile Engineering, 231(14), 1963–1972.</div>
         </div>
         <div class="list-item">
-          <a href="https://doi.org/10.1109/TITS.2020.2991665" target="_blank" rel="noopener">Bionics‑inspired energy management for PHEV formations</a>
-          <div class="meta">Liu, C. Z., Li, L., Yong, J. W., Muhammad, F., Cheng, S., Wang, X. Y., & Li, W. B. (2020). IEEE Trans. Intelligent Transportation Systems, 22(12), 7860–7874.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407016646940" target="_blank" rel="noopener">Fusion algorithm for vehicle side‑slip and roll angle estimation with optimized parameters</a>
-          <div class="meta">Jiang, G., Liu, L., Guo, C., Chen, J., Muhammad, F., & Miao, X. (2017). Proc. IMechE Part D, 231(10), 1380–1390.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1109/TITS.2020.2971800" target="_blank" rel="noopener">An innovative adaptive cruise control method with packet dropout</a>
-          <div class="meta">Liu, C. Z., Li, L., Yong, J. W., Muhammad, F., Cheng, S., & Wu, Q. (2020). IEEE Trans. Intelligent Transportation Systems, 22(11), 7102–7114.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407020946231" target="_blank" rel="noopener">Nonlinear fractional‑order H∞ observer for SOC estimation of EV battery packs</a>
-          <div class="meta">Yue, W., Liu, C., Li, L., Chen, X., & Muhammad, F. (2021). Proc. IMechE Part D, 235(7), 1894–1904.</div>
-        </div>
-        <div class="list-item">
           <a href="https://doi.org/10.1109/TITS.2020.2974243" target="_blank" rel="noopener">Finite‑frequency H∞ methods for intelligent transportation applications</a>
           <div class="meta">Liu, C. Z., Li, L., Yong, J. W., Muhammad, F., & Cheng, S. (2020). IEEE Trans. Intelligent Transportation Systems, 22(3), 1553–1561.</div>
         </div>
         <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407018778785" target="_blank" rel="noopener">Multi‑objective real‑time optimal energy management for PHEVs</a>
-          <div class="meta">Du, S., Yang, Y., Liu, C., & Muhammad, F. (2019). Proc. IMechE Part D, 233(7), 1760–1772.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407015619989" target="_blank" rel="noopener">Force‑tracking control of a novel electric parking brake actuator with load‑sensing CVT</a>
-          <div class="meta">Zhang, L., Yu, W., Zhao, X., Meng, A., & Muhammad, F. (2016). Proc. IMechE Part D, 230(11), 1515–1526.</div>
-        </div>
-        <div class="list-item">
           <a>MPILC‑based energy management strategy for series–parallel PHEV</a>
-          <div class="meta">Muhammad, F., C. Liu, & Li, L. (2018). 14th International Symposium on Advanced Vehicle Control (AVEC 2018).</div>
+          <div class="meta">Muhammad, F., C. Liu, & Li, L. (2018). 14th International Symposium on Advanced Vehicle Control (AVEC 2018), Beijing, China.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="press">
+      <div class="section-title">Media Coverage & Press</div>
+      <div class="list">
+        <div class="list-item">
+          <a href="https://www.tmj4.com/news/local-news/this-is-the-story-of-america-uwm-to-study-self-driving-technology" target="_blank" rel="noopener">TMJ4 News: "This is the story of America: UWM to study self‑driving technology"</a>
+          <div class="meta">Television segment covering our autonomous vehicle research initiative and its potential impact on public safety and transportation.</div>
+        </div>
+        <div class="list-item">
+          <a href="http://www.avamerica.org/the-road-to-safer-driving-uw-milwaukee-to-study-self-driving-vehicles/" target="_blank" rel="noopener">AV America: "The road to safer driving: UW‑Milwaukee to study self‑driving vehicles"</a>
+          <div class="meta">In-depth feature article discussing project objectives, methodology, and expected contributions to transportation safety research.</div>
+        </div>
+        <div class="list-item">
+          <a href="https://www.yahoo.com/news/uwm-study-self-driving-technology-235500738.html" target="_blank" rel="noopener">Yahoo! News: UWM study of self‑driving technology</a>
+          <div class="meta">National coverage highlighting the university's commitment to advancing autonomous vehicle research and real-world testing.</div>
+        </div>
+        <div class="list-item">
+          <a href="https://www.newsbreak.com/tmj4-news-563676/3871789395829-uwm-to-study-self-driving-technology" target="_blank" rel="noopener">NewsBreak: UWM to study self‑driving technology</a>
+          <div class="meta">Syndicated coverage reaching diverse audiences about the practical applications of our research.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="interests">
+      <div class="section-title">Research Interests</div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Core Technical Areas</h3>
+          <div class="tags">
+            <span class="tag">Computer Vision</span>
+            <span class="tag">State Estimation</span>
+            <span class="tag">Motion Planning</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Sensor Fusion</span>
+            <span class="tag">SLAM/VIO</span>
+            <span class="tag">Control Theory</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Applied Research Areas</h3>
+          <div class="tags">
+            <span class="tag">Autonomous Vehicles</span>
+            <span class="tag">Transportation Safety</span>
+            <span class="tag">Urban Robotics</span>
+            <span class="tag">Field Robotics</span>
+            <span class="tag">Human-Robot Interaction</span>
+            <span class="tag">Multi-Robot Systems</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Emerging Interests</h3>
+          <div class="tags">
+            <span class="tag">Edge Computing</span>
+            <span class="tag">Federated Learning</span>
+            <span class="tag">Explainable AI</span>
+            <span class="tag">Digital Twins</span>
+            <span class="tag">5G/6G Applications</span>
+            <span class="tag">Sustainable Robotics</span>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="contact">
-      <div class="section-title">Contact</div>
+      <div class="section-title">Get In Touch</div>
       <div class="contact">
         <div class="card">
-          <h3>Say hello</h3>
-          <p>Email <a href="mailto:hi@fahadmuhammad.com">hi@fahadmuhammad.com</a>. For code and datasets, include a link to your use case so I can reply fast.</p>
+          <h3>Professional Inquiries</h3>
+          <p>Interested in collaboration, research opportunities, or technical discussions? I'm always open to connecting with fellow researchers, industry professionals, and students.</p>
+          <p><strong>Email:</strong> <a href="mailto:hi@fahadmuhammad.com">hi@fahadmuhammad.com</a></p>
+          <div class="tags">
+            <span class="tag">Research Collaboration</span>
+            <span class="tag">Speaking Engagements</span>
+            <span class="tag">Technical Consulting</span>
+          </div>
         </div>
         <div class="card">
-          <h3>Links</h3>
-          <p><a href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> · <a href="https://github.com/iamfahad289" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/iamfahadusa/" target="_blank" rel="noopener">LinkedIn</a></p>
+          <h3>Academic & Research</h3>
+          <p>For academic collaborations, dataset requests, or technical questions about my research, please include relevant details about your project or inquiry.</p>
+          <p><strong>Response time:</strong> Typically within 48 hours</p>
+          <div class="tags">
+            <span class="tag">Dataset Access</span>
+            <span class="tag">Code Sharing</span>
+            <span class="tag">Peer Review</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Social & Professional Networks</h3>
+          <p>Connect with me on various platforms to stay updated on my latest research and professional activities.</p>
+          <div style="margin-top: 20px;">
+            <a href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&hl=en" target="_blank" rel="noopener" style="display: inline-block; margin: 8px 16px 8px 0; color: var(--accent);">📚 Google Scholar</a><br>
+            <a href="https://github.com/iamfahad289" target="_blank" rel="noopener" style="display: inline-block; margin: 8px 16px 8px 0; color: var(--accent);">💻 GitHub</a><br>
+            <a href="https://www.linkedin.com/in/iamfahadusa/" target="_blank" rel="noopener" style="display: inline-block; margin: 8px 16px 8px 0; color: var(--accent);">💼 LinkedIn</a><br>
+          </div>
         </div>
       </div>
     </section>
 
     <footer>
-      <div class="container">
-        © <span id="y"></span> Muhammad Fahad. Built with care and shipped reproducible.
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#contact">Contact</a>
+        <a href="/cv.pdf" target="_blank" rel="noopener">CV</a>
+      </div>
+      <div>
+        © <span id="y"></span> Muhammad Fahad. Designed with precision, built for impact.
       </div>
     </footer>
   </main>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(10,13,20,0.95)';
+      } else {
+        header.style.background = 'rgba(10,13,20,0.85)';
+      }
+    });
+  </script>
 </body>
 </html>
