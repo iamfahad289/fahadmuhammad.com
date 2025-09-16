@@ -1,383 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Muhammad Fahad — Robotics Researcher</title>
-  <meta name="description" content="Robotics researcher focused on outdoor perception, visual–inertial odometry, and uncertainty‑aware planning." />
-  <meta name="keywords" content="robotics, outdoor autonomy, computer vision, perception, visual–inertial odometry, VIO, sensor fusion, state estimation, uncertainty-aware planning, motion planning, multi-robot systems, machine learning, ROS, RTK GNSS, CARLA, dataset, benchmark, autonomous systems, field robotics, human-robot interaction, rehabilitation robotics, soft robotics" />
-  <style>
-    :root {
-      --bg: #0b0f17;
-      --card: #111827;
-      --muted: #9ca3af;
-      --text: #e5e7eb;
-      --accent: #4f46e5;
-      --accent-2: #06b6d4;
-      --border: #1f2937;
-      --link: #a5b4fc;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: radial-gradient(1000px 600px at 10% -10%, rgba(79,70,229,.15), transparent 60%), radial-gradient(800px 500px at 100% 0%, rgba(6,182,212,.12), transparent 50%), var(--bg); }
-    a { color: var(--link); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-    header { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(140%) blur(12px); background: rgba(11,15,23,0.6); border-bottom: 1px solid var(--border); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .brand { font-weight: 700; letter-spacing: .4px; }
-    .brand span { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .nav a { margin-left: 18px; color: var(--muted); font-size: .95rem; }
-    .nav a:hover { color: var(--text); }
-
-    .hero { padding: 72px 0 40px; display: grid; grid-template-columns: 1fr; gap: 18px; }
-    .title { font-size: clamp(34px, 6vw, 54px); line-height: 1.05; font-weight: 800; }
-    .subtitle { color: var(--muted); font-size: clamp(16px, 2.2vw, 18px); max-width: 820px; }
-    .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
-    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); background: #0e1420; color: var(--text); font-weight: 600; }
-    .btn.primary { border-color: transparent; background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: white; }
-    .btn:hover { filter: brightness(1.1); text-decoration: none; }
-
-    .stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 18px; }
-    .stat { border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0)); padding: 14px 16px; border-radius: 14px; }
-    .stat .n { font-size: 22px; font-weight: 800; }
-    .stat .k { color: var(--muted); font-size: 13px; letter-spacing: .2px; }
-
-    section { padding: 40px 0; }
-    .section-title { font-size: 20px; letter-spacing: .4px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-
-    .cards { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    .card { border: 1px solid var(--border); background: var(--card); border-radius: 16px; padding: 18px; }
-    .card h3 { margin: 0 0 6px; font-size: 20px; }
-    .card p { margin: 8px 0 0; color: var(--muted); }
-    .tagline { margin-top: 6px; font-size: 14px; color: var(--muted); }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .tag { font-size: 12px; border: 1px solid var(--border); padding: 6px 10px; border-radius: 999px; color: var(--muted); }
-
-    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
-
-    .list { display: grid; gap: 10px; }
-    .list-item { border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0)); }
-    .list-item a { font-weight: 600; }
-    .list-item .meta { color: var(--muted); font-size: 14px; margin-top: 4px; }
-
-    .contact { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    .contact a { display: inline-flex; align-items: center; gap: 10px; }
-
-    footer { padding: 32px 0 60px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 30px; }
-
-    @media (min-width: 860px) {
-      .hero { grid-template-columns: 1.2fr .8fr; align-items: center; }
-      .cards { grid-template-columns: repeat(3, minmax(0,1fr)); }
-      .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-  .avatar{width:100%;height:auto;border-radius:16px;object-fit:cover;border:1px solid var(--border);}
-    .profile-pic{border-radius:18px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0));border:1px solid var(--border);}
-    .timeline{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:10px}
-    .timeline li{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,0))}
-    .timeline .meta{color:var(--muted);font-size:14px;margin-top:4px}
-  </style>
-  <link rel="icon" href="/favicon.ico" />
-  <meta property="og:title" content="Muhammad Fahad — Robotics Researcher" />
-  <meta property="og:description" content="Robotics researcher focused on outdoor perception, visual–inertial odometry, and uncertainty‑aware planning." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://fahadmuhammad.com/" />
-  <meta property="og:image" content="https://fahadmuhammad.com/og-image.jpg" />
-  <link rel="canonical" href="https://fahadmuhammad.com/" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Muhammad Fahad",
-    "jobTitle": "Robotics Researcher",
-    "url": "https://fahadmuhammad.com/",
-    "sameAs": [
-      "https://github.com/iamfahad289",
-      "https://www.linkedin.com/in/iamfahadusa/",
-      "https://scholar.google.com/citations?user=NQzV97cAAAAJ&hl=en"
-    ]
-  }</script>
-</head>
-<body>
-  <header>
-    <div class="container nav">
-      <div class="brand">Muhammad <span>Fahad</span></div>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#research">Research</a>
-        <a href="#projects">Projects</a>
-        <a href="#publications">Publications</a>
-        <a href="#press">Press</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="hero">
-      <div>
-        <h1 class="title">Robotics Researcher</h1>
-        <p class="subtitle">Outdoor perception, visual–inertial odometry, and uncertainty‑aware planning. I build systems that work outside every day, not just on demo day.</p>
-        <div class="cta">
-          <a class="btn primary" href="/cv.pdf" target="_blank" rel="noopener">Download CV</a>
-          <a class="btn" href="mailto:hi@fahadmuhammad.com">Email</a>
-          <a class="btn" href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
-          <a class="btn" href="https://github.com/iamfahad289" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="https://www.linkedin.com/in/iamfahadusa/" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-        <div class="stats">
-          <div class="stat"><div class="n">3.94</div><div class="k">Graduate GPA</div></div>
-          <div class="stat"><div class="n">11</div><div class="k">Publications</div></div>
-          <div class="stat"><div class="n">166</div><div class="k">Citations</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="profile-pic"><img class="avatar" src="/assets/images/profile.jpg" alt="Muhammad Fahad" /></div>
-        <div class="card" style="margin-top:14px;">
-          <h3>Focus</h3>
-          <p class="tagline">Dependable outdoor autonomy</p>
-          <div class="tags">
-            <span class="tag">Perception</span>
-            <span class="tag">VIO</span>
-            <span class="tag">Sensor fusion</span>
-            <span class="tag">Planning</span>
-            <span class="tag">ROS</span>
-            <span class="tag">Python • C++</span>
-          </div>
-        </div>
-        <div class="card" style="margin-top:14px;">
-          <h3>Current</h3>
-          <p>Crosswalk perception dataset and evaluation toolkit with panoramic video and RTK ground truth. Self‑supervised VIO with calibrated uncertainty for planners. 1/10 scale autonomy loops.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="section-title">About</div>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Profile</h3>
-          <p>MS at UWM with a 3.94 GPA in robotics, vision, and learning. Earlier BE and MS at Tsinghua University in dynamics and control. I write clear code, log every run, and publish artifacts others can use.</p>
-        </div>
-        <div class="card">
-          <h3>What I like</h3>
-          <p>Honest plots, reproducible scripts, and systems that keep working at night, in rain, and around people.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills">
-      <div class="section-title">Skills & Tools</div>
-      <div class="cards">
-        <div class="card">
-          <h3>Core</h3>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">C++17</span><span class="tag">ROS1/ROS2</span><span class="tag">PyTorch</span><span class="tag">OpenCV</span><span class="tag">NumPy</span><span class="tag">MATLAB</span>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Perception & Estimation</h3>
-          <div class="tags">
-            <span class="tag">VIO</span><span class="tag">SLAM</span><span class="tag">YOLOv9</span><span class="tag">DeepSORT</span><span class="tag">Homography</span><span class="tag">RTK‑GNSS</span><span class="tag">EKF/UKF</span><span class="tag">Factor Graphs</span>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Systems</h3>
-          <div class="tags">
-            <span class="tag">Linux</span><span class="tag">Docker</span><span class="tag">Git</span><span class="tag">CARLA</span><span class="tag">Gazebo</span><span class="tag">CI/Artifacts</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience">
-      <div class="section-title">Experience</div>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Professional</h3>
-          <ul class="timeline">
-            <li><strong>Graduate Researcher — Outdoor Robotics</strong><br/><span class="meta">University of Wisconsin–Milwaukee · 2024–present · Field data collection, panoramic perception, VIO, reproducible evaluation toolkit; two TRB 2026 submissions.</span></li>
-            <li><strong>Intelligent Vehicles & Control</strong><br/><span class="meta">2016–2021 · Research on energy management, observers, and ACC reflected in IEEE T‑ITS and IMechE Part D publications.</span></li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Teaching & Mentoring</h3>
-          <ul class="timeline">
-            <li><strong>Mentor — Robotics/Vision Projects</strong><br/><span class="meta">Guided undergraduates on ROS2, detection‑tracking, and clean experiment logging.</span></li>
-            <li><strong>Workshops</strong><br/><span class="meta">Intro sessions on ROS2 nodes, dataset design, and benchmark discipline.</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="interests">
-      <div class="section-title">Research Interests</div>
-      <div class="cards">
-        <div class="card"><h3>Technical Areas</h3><div class="tags"><span class="tag">Perception</span><span class="tag">State Estimation</span><span class="tag">Motion Planning</span><span class="tag">Learning‑based Control</span><span class="tag">Multi‑robot Systems</span><span class="tag">Human‑Robot Interaction</span><span class="tag">Soft Robotics</span></div></div>
-        <div class="card"><h3>Application Areas</h3><div class="tags"><span class="tag">Mobile Robotics</span><span class="tag">Transportation</span><span class="tag">Healthcare/Assistive</span><span class="tag">Agriculture</span><span class="tag">Search & Rescue</span><span class="tag">Scientific Exploration</span></div></div>
-      </div>
-    </section>
-
-    <section id="research">
-      <div class="section-title">Research</div>
-      <div class="cards">
-        <div class="card">
-          <h3>Urban Crosswalk Perception</h3>
-          <p>Multi season panoramic video aligned to RTK GNSS. Detection with YOLOv9e, tracking with DeepSORT, projection to world frame via calibrated homographies, and trajectory stitching across camera splits. Metrics include IDF1, HOTA, and track level precision–recall.</p>
-          <div class="tags">
-            <span class="tag">Panoramic vision</span>
-            <span class="tag">RTK GNSS</span>
-            <span class="tag">YOLOv9e</span>
-            <span class="tag">DeepSORT</span>
-          </div>
-        </div>
-        <div class="card">
-          <h3>GNSS‑Denied Navigation</h3>
-          <p>Self supervised visual–inertial odometry in CARLA and on a 1/10 scale vehicle. Drift and uncertainty measured with ATE and RPE, designed so planners can consume calibrated posteriors.</p>
-          <div class="tags">
-            <span class="tag">VIO</span>
-            <span class="tag">CARLA</span>
-            <span class="tag">Uncertainty</span>
-          </div>
-        </div>
-        <div class="card">
-          <h3>1/10 Scale Autonomy</h3>
-          <p>Closed loop path following with disciplined logging and quick ablations. Fast hardware loops that keep ideas honest.</p>
-          <div class="tags">
-            <span class="tag">ROS</span>
-            <span class="tag">C++</span>
-            <span class="tag">Python</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="section-title">Selected Projects & Highlights</div>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Perception → Planning Interface</h3>
-          <p>Small library to expose calibrated posteriors from vision and VIO to planners with risk metrics tied to collision and near‑miss rates.</p>
-          <div class="tags"><span class="tag">Open source</span><span class="tag">Planning</span><span class="tag">Uncertainty</span></div>
-        </div>
-        <div class="card">
-          <h3>Outdoor Perception Benchmark</h3>
-          <p>Campus routes with day/night/weather splits and RTK ground truth. Scripts that rebuild figures on a fresh machine.</p>
-          <div class="tags"><span class="tag">Benchmark</span><span class="tag">Dataset</span><span class="tag">Reproducible</span></div>
-        </div>
-        <div class="card">
-          <h3>Proposal (in preparation)</h3>
-          <p><strong>Effects of Vehicle Headlight Color on Glare and Safety</strong> — AAA Foundation for Traffic Safety (AAAFTS). Call posted Sept 9, 2025; deadline Oct 21, 2025. Contributing to study design and field methodology.</p>
-          <div class="tags"><span class="tag">Safety</span><span class="tag">Perception</span><span class="tag">Human factors</span></div>
-        </div>
-        <div class="card">
-          <h3>Awards & Achievements</h3>
-          <p>TRB 2026: two manuscripts submitted (perception framework; CrossTraj dataset). UWM MS GPA 3.94. Built a curated crosswalk trajectory dataset and an evaluation toolkit used by our lab. Mentored junior researchers on reproducible workflows.</p>
-          <div class="tags"><span class="tag">TRB</span><span class="tag">Dataset</span><span class="tag">Toolkit</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="press">
-      <div class="section-title">Media & Press</div>
-      <div class="list">
-        <div class="list-item">
-          <a href="https://www.tmj4.com/news/local-news/this-is-the-story-of-america-uwm-to-study-self-driving-technology" target="_blank" rel="noopener">TMJ4 News: “This is the story of America: UWM to study self‑driving technology”</a>
-          <div class="meta">TV segment covering our self‑driving research initiative.</div>
-        </div>
-        <div class="list-item">
-          <a href="http://www.avamerica.org/the-road-to-safer-driving-uw-milwaukee-to-study-self-driving-vehicles/" target="_blank" rel="noopener">AV America: “The road to safer driving: UW‑Milwaukee to study self‑driving vehicles”</a>
-          <div class="meta">Feature article on project goals and public‑safety impacts.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://www.newsbreak.com/tmj4-news-563676/3871789395829-uwm-to-study-self-driving-technology" target="_blank" rel="noopener">NewsBreak: UWM to study self‑driving technology</a>
-          <div class="meta">Syndicated coverage of the TMJ4 story.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://www.yahoo.com/news/uwm-study-self-driving-technology-235500738.html" target="_blank" rel="noopener">Yahoo! News: UWM study of self‑driving technology</a>
-          <div class="meta">Article aggregation highlighting our field research.</div>
-        </div>
-        <!-- Add more links here; send URLs for the UWM College of Engineering & Applied Science posts and we’ll include them. -->
-      </div>
-    </section>
-
-    <section id="publications">
-      <div class="section-title">Publications</div>
-      <div class="list">
-        <div class="list-item">
-          <a>Roadside Perception Evaluation Framework using Panoramic Cameras and RTK GNSS</a>
-          <div class="meta">Muhammad, F., et al. (2025). Manuscript submitted for presentation and publication. Transportation Research Board (TRB) 105th Annual Meeting, Washington, D.C., 2026.</div>
-        </div>
-        <div class="list-item">
-          <a>CrossTraj: A Bi-Season Video-Based Vehicle and Pedestrian Trajectory Dataset at a Midblock Crosswalk in Milwaukee</a>
-          <div class="meta">Muhammad, F., et al. (2025). Manuscript submitted for presentation and publication. Transportation Research Board (TRB) 105th Annual Meeting, Washington, D.C., 2026.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1109/ACCESS.2019.2919872" target="_blank" rel="noopener">Model predictive iterative learning control for energy management of plug‑in hybrid electric vehicle</a>
-          <div class="meta">Guo, H. Q., Liu, C. Z., Yong, J. W., Cheng, X. Q., & Muhammad, F. (2019). IEEE Access, 7, 71323–71334.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1115/1.4032532" target="_blank" rel="noopener">A modified predictive functional control with sliding mode observer for automated dry clutch control of vehicle</a>
-          <div class="meta">Li, L., Wang, X., Hu, X., Chen, Z., Song, J., & Muhammad, F. (2016). Journal of Dynamic Systems, Measurement, and Control, 138(6), 061005.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407016688213" target="_blank" rel="noopener">Real‑time estimation of wheel‑cylinder pressure with EKF in a vehicle braking control system</a>
-          <div class="meta">Jiang, G., Miao, X., Wang, Y., Chen, J., Li, D., Liu, L., & Muhammad, F. (2017). Proc. IMechE Part D: J. Automobile Engineering, 231(14), 1963–1972.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1109/TITS.2020.2991665" target="_blank" rel="noopener">Bionics‑inspired energy management for PHEV formations</a>
-          <div class="meta">Liu, C. Z., Li, L., Yong, J. W., Muhammad, F., Cheng, S., Wang, X. Y., & Li, W. B. (2020). IEEE Trans. Intelligent Transportation Systems, 22(12), 7860–7874.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407016646940" target="_blank" rel="noopener">Fusion algorithm for vehicle side‑slip and roll angle estimation with optimized parameters</a>
-          <div class="meta">Jiang, G., Liu, L., Guo, C., Chen, J., Muhammad, F., & Miao, X. (2017). Proc. IMechE Part D, 231(10), 1380–1390.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1109/TITS.2020.2971800" target="_blank" rel="noopener">An innovative adaptive cruise control method with packet dropout</a>
-          <div class="meta">Liu, C. Z., Li, L., Yong, J. W., Muhammad, F., Cheng, S., & Wu, Q. (2020). IEEE Trans. Intelligent Transportation Systems, 22(11), 7102–7114.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407020946231" target="_blank" rel="noopener">Nonlinear fractional‑order H∞ observer for SOC estimation of EV battery packs</a>
-          <div class="meta">Yue, W., Liu, C., Li, L., Chen, X., & Muhammad, F. (2021). Proc. IMechE Part D, 235(7), 1894–1904.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1109/TITS.2020.2974243" target="_blank" rel="noopener">Finite‑frequency H∞ methods for intelligent transportation applications</a>
-          <div class="meta">Liu, C. Z., Li, L., Yong, J. W., Muhammad, F., & Cheng, S. (2020). IEEE Trans. Intelligent Transportation Systems, 22(3), 1553–1561.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407018778785" target="_blank" rel="noopener">Multi‑objective real‑time optimal energy management for PHEVs</a>
-          <div class="meta">Du, S., Yang, Y., Liu, C., & Muhammad, F. (2019). Proc. IMechE Part D, 233(7), 1760–1772.</div>
-        </div>
-        <div class="list-item">
-          <a href="https://doi.org/10.1177/0954407015619989" target="_blank" rel="noopener">Force‑tracking control of a novel electric parking brake actuator with load‑sensing CVT</a>
-          <div class="meta">Zhang, L., Yu, W., Zhao, X., Meng, A., & Muhammad, F. (2016). Proc. IMechE Part D, 230(11), 1515–1526.</div>
-        </div>
-        <div class="list-item">
-          <a>MPILC‑based energy management strategy for series–parallel PHEV</a>
-          <div class="meta">Muhammad, F., C. Liu, & Li, L. (2018). 14th International Symposium on Advanced Vehicle Control (AVEC 2018).</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="section-title">Contact</div>
-      <div class="contact">
-        <div class="card">
-          <h3>Say hello</h3>
-          <p>Email <a href="mailto:hi@fahadmuhammad.com">hi@fahadmuhammad.com</a>. For code and datasets, include a link to your use case so I can reply fast.</p>
-        </div>
-        <div class="card">
-          <h3>Links</h3>
-          <p><a href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> · <a href="https://github.com/iamfahad289" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/iamfahadusa/" target="_blank" rel="noopener">LinkedIn</a></p>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="container">
-        © <span id="y"></span> Muhammad Fahad. Built with care and shipped reproducible.
-      </div>
-    </footer>
-  </main>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-</body>
-</html>
+:root{--bg:#0b0f17;--card:#111827;--muted:#9ca3af;--text:#e5e7eb;--accent:#4f46e5;--accent-2:#06b6d4;--border:#1f2937;--link:#a5b4fc}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica Neue,Arial;line-height:1.55;color:var(--text);background:radial-gradient(1000px 600px at 10% -10%,rgba(79,70,229,.15),transparent 60%),radial-gradient(800px 500px at 100% 0%,rgba(6,182,212,.12),transparent 50%),var(--bg)}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(12px);background:rgba(11,15,23,.6);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-weight:800;letter-spacing:.4px}
+.brand span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav a{margin-left:18px;color:var(--muted);font-size:.95rem}
+.nav a:hover{color:var(--text)}
+.hero{padding:72px 0 40px;display:grid;grid-template-columns:1fr;gap:18px}
+.title{font-size:clamp(34px,6vw,54px);line-height:1.05;font-weight:800}
+.subtitle{color:var(--muted);font-size:clamp(16px,2.2vw,18px);max-width:820px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:#0e1420;color:var(--text);font-weight:600}
+.btn.primary{border-color:transparent;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff}
+.btn:hover{filter:brightness(1.1);text-decoration:none}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.stat{border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(0,0,0,0));padding:14px 16px;border-radius:14px}
+.stat .n{font-size:22px;font-weight:800}
+.stat .k{color:var(--muted);font-size:13px;letter-spacing:.2px}
+section{padding:40px 0}
+.section-title{font-size:20px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.cards{display:grid;grid-template-columns:1fr;gap:14px}
+.card{border:1px solid var(--border);background:var(--card);border-radius:16px;padding:18px}
+.card h3{margin:0 0 6px;font-size:20px}
+.card p{margin:8px 0 0;color:var(--muted)}
+.tagline{margin-top:6px;font-size:14px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tag{font-size:12px;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:1fr;gap:14px}
+.list{display:grid;gap:10px}
+.list-item{border:1px solid var(--border);border-radius:12px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,0))}
+.list-item a{font-weight:600}
+.list-item .meta{color:var(--muted);font-size:14px;margin-top:4px}
+.contact{display:grid;grid-template-columns:1fr;gap:14px}
+footer{padding:32px 0 60px;color:var(--muted);border-top:1px solid var(--border);margin-top:30px}
+.avatar{width:100%;height:auto;border-radius:16px;object-fit:cover;border:1px solid var(--border)}
+.profile-pic{border-radius:18px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,0));border:1px solid var(--border)}
+.timeline{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:10px}
+.timeline li{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,0))}
+.timeline .meta{color:var(--muted);font-size:14px;margin-top:4px}
+@media(min-width:860px){.hero{grid-template-columns:1.2fr .8fr;align-items:center}.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
