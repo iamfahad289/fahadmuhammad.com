@@ -26,13 +26,33 @@ Console so the new structured data gets picked up.
 
 ## Updating the numbers
 
-Citation count (`232`) and publication count (`18`) each appear in three places:
-the hero stat block, the Evidence index row for scholarly articles, and the
-Publications section intro. Update all three together.
+Citation count (`222`) and publication count (`17`) appear in the hero stat block,
+the Evidence index row for scholarly articles, the Publications section intro, the
+meta description, the og:description, the twitter:description, the Contact profile
+list, and the generated `assets/og-image.jpg`. Update them together.
 
-The Publications section lists 14 papers with full citation details out of the 18
-on Google Scholar, and is labelled "selected work" for that reason. Add the four
-missing entries and the label can be dropped.
+All 17 publications are now listed in full, grouped as: Under review (3, TRB 2027),
+Conference proceedings (4), Journal articles (10). Per-paper citation counts come
+from Google Scholar.
+
+### Why 17 and 222, not 18 and 232
+
+Your Google Scholar profile currently shows 18 publications and 232 citations, but
+one entry is not yours:
+
+> "Comparative and functional analysis unveils the contribution of photoperiod to
+> DNA methylation, sRNA accumulation, and gene expression variations in short-day
+> and long-day grasses" — X Wu, S Chen, F Lin, F Muhammad, H Xu, L Wu,
+> *The Plant Journal* 118(6), 1955–1971, 2024 — 10 citations
+
+That is plant molecular biology by a different "F Muhammad". Scholar auto-attributed
+it. The arithmetic confirms it exactly: your own ten cited papers sum to 222, and
+222 + 10 = 232.
+
+That paper is also what lifts your h-index and i10-index from 8 to 9.
+
+Remove it from Scholar (Scholar profile → select the entry → Delete), after which
+Scholar will show 17 / 222 / h-index 8 / i10-index 8 and match this site exactly.
 
 ## Design notes
 
