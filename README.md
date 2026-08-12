@@ -26,9 +26,13 @@ Console so the new structured data gets picked up.
 
 ## Updating the numbers
 
-Citation count appears in three places — search for `232`:
-the hero stat block, the Evidence index, and the Publications intro.
-Publication count (`14`) appears in the hero stat block and Publications intro.
+Citation count (`232`) and publication count (`18`) each appear in three places:
+the hero stat block, the Evidence index row for scholarly articles, and the
+Publications section intro. Update all three together.
+
+The Publications section lists 14 papers with full citation details out of the 18
+on Google Scholar, and is labelled "selected work" for that reason. Add the four
+missing entries and the label can be dropped.
 
 ## Design notes
 
@@ -40,6 +44,19 @@ Accent colours are the two LED spectra that won the WisDOT field study:
 
 Display face is Overpass, which is based on FHWA Highway Gothic — the lettering used
 on US road signs. Body is IBM Plex Sans; data and labels are IBM Plex Mono.
+
+## Proposals section
+
+`#proposals` lives at the end of the Roles section. Six proposals are listed; only the
+WisDOT crosswalk entry is marked "Awarded & delivered" — the other five say "Submitted".
+Correct any that were awarded, declined, or are still in preparation by editing the
+fourth column. The `class="win"` on a row is what gives it the blue highlight, so move
+that attribute if another proposal gets funded.
+
+The accelerated-computing vendor challenge is described generically rather than by name,
+per your instruction not to name target companies on the site. Since this is proposal
+work you actually did rather than a pitch, naming it is defensible if you prefer —
+edit the "Program / sponsor" cell.
 
 ## Still to confirm
 
