@@ -6,7 +6,7 @@
 
 <title>Muhammad Fahad — Autonomous Vehicle Perception & Safety-Critical AI Researcher</title>
 <meta name="description" content="Muhammad Fahad is a PhD researcher in autonomous vehicle perception at UW–Milwaukee. Roadside perception evaluation, pedestrian trajectory datasets, sensor fusion and nighttime vulnerable-road-user detection. 222 citations, first-author TRB and ASCE ICTD papers, lead researcher on WisDOT project 0092-25-23.">
-<meta name="keywords" content="autonomous vehicle perception researcher, roadside perception evaluation, pedestrian trajectory dataset, vulnerable road user detection, nighttime pedestrian detection, VRU perception, multi-object tracking, sensor fusion RTK GNSS, safety-critical AI, ADAS validation, trajectory prediction, computer vision PhD autonomous driving, intelligent transportation systems, AV safety validation, YOLOv9 DeepSORT tracking, Muhammad Fahad">
+<meta name="keywords" content="autonomous vehicle perception researcher, roadside perception evaluation, pedestrian trajectory dataset, vulnerable road user detection, nighttime pedestrian detection, VRU perception, nighttime glare dataset, headlight glare measurement, glare screening index, connected vehicle speed advisory, multi-object tracking, sensor fusion RTK GNSS, safety-critical AI, ADAS validation, trajectory prediction, computer vision PhD autonomous driving, intelligent transportation systems, AV safety validation, YOLOv9 DeepSORT tracking, Muhammad Fahad">
 <meta name="author" content="Muhammad Fahad">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://fahadmuhammad.com/">
@@ -439,9 +439,10 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
       <div class="ev-k">Original contributions
         <small>Of major significance</small></div>
       <div class="ev-v">Field evidence that blue-spectrum crosswalk lighting extends driver detection
-        distance, now written into planning-level design guidance for Wisconsin DOT; CrossTraj,
-        a bi-season pedestrian–vehicle trajectory dataset; a trajectory-level evaluation framework
-        for roadside perception systems.</div>
+        distance, now written into planning-level design guidance for Wisconsin DOT; CrossTraj, a
+        bi-season pedestrian–vehicle trajectory dataset; GLANCE, the first dataset to score nighttime
+        glare by light delivered to the driver's eye rather than image brightness; and a
+        trajectory-level evaluation framework for roadside perception systems.</div>
       <div class="ev-go"><a href="#crosswalk">Studies →</a></div>
     </div>
 
@@ -590,7 +591,9 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
     <p class="eyebrow">Research programs</p>
     <h2>Perception you can put a number on</h2>
     <p>Detection benchmarks say a model found a box in a frame. None of that tells you whether the
-      resulting trajectory was accurate enough to make a safety decision. My work closes that gap.</p>
+      resulting trajectory was accurate enough to make a safety decision, or whether the sensor could
+      see anything at all under glare. My work builds the datasets and evaluation frameworks that
+      close that gap.</p>
   </div>
 
   <div class="grid g2">
@@ -639,6 +642,35 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
       <div class="tags">
         <span class="tag">Scaled AV testbed</span><span class="tag">Safety validation</span>
         <span class="tag">Edge-case testing</span><span class="tag">Control systems</span>
+      </div>
+    </div>
+
+    <div class="card rv">
+      <h3>GLANCE — nighttime glare exposure dataset</h3>
+      <p>Six in ten U.S. drivers call headlight glare a problem after dark, yet glare appears in only
+        0.1–0.2% of nighttime crash records — because nobody measures the light that actually reaches
+        the driver's eye. GLANCE pairs forward roadway video with an eye-level photometric logger
+        sampling at the spectacle plane at 20 Hz, so a glare event is scored by delivered light rather
+        than by how bright it looks on camera. Calibrating video against the sensor nearly doubled
+        detection of the worst moments (average precision 0.29 → 0.50), and duration rather than peak
+        intensity separated the 58 recorded episodes.</p>
+      <div class="tags">
+        <span class="tag">Photometric ground truth</span><span class="tag">20 Hz logging</span>
+        <span class="tag">Glare screening index</span><span class="tag">AV perception benchmarking</span>
+      </div>
+    </div>
+
+    <div class="card rv">
+      <h3>Human-executable connected-vehicle speed advisories</h3>
+      <p>Speed advisory algorithms optimize trajectories for energy and traffic flow, then treat the
+        driver as a disturbance. But drivers never track a prescribed speed exactly — perception
+        limits, reaction delay and longitudinal control error intervene, and the gap widens when an
+        advisory varies continuously or demands fine-grained adjustment. This project treats human
+        executability as a design requirement rather than an error term, optimizing traffic
+        performance, driver tracking limits and advisory simplicity jointly. Field validation planned.</p>
+      <div class="tags">
+        <span class="tag">Connected vehicles</span><span class="tag">Human factors</span>
+        <span class="tag">Driver modeling</span><span class="tag">In progress</span>
       </div>
     </div>
   </div>
@@ -1025,44 +1057,38 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
   <div class="tbl-scroll rv">
     <table>
       <thead>
-        <tr><th scope="col">Proposal</th><th scope="col">Program / sponsor</th><th scope="col">Focus</th><th scope="col">Status</th></tr>
+        <tr><th scope="col">Proposal</th><th scope="col">Program / sponsor</th><th scope="col">Focus</th></tr>
       </thead>
       <tbody>
         <tr class="win">
           <td>Enhanced crosswalk illumination</td>
           <td>Wisconsin DOT · 0092-25-23</td>
           <td>Nighttime pedestrian visibility, spectral evaluation</td>
-          <td>Awarded &amp; delivered</td>
         </tr>
         <tr>
           <td>Vehicle headlight color and glare</td>
           <td>AAA Foundation for Traffic Safety</td>
           <td>Headlight spectrum effects on glare and driver safety</td>
-          <td>Submitted</td>
         </tr>
         <tr>
           <td>ADAS evaluation solicitation response</td>
           <td>Industry request for quotation</td>
           <td>Advanced driver assistance system testing and validation</td>
-          <td>Submitted</td>
         </tr>
         <tr>
           <td>Catalyst technology translation</td>
           <td>UWM Research Foundation Catalyst Grant</td>
           <td>Commercialization pathway for crosswalk sensing technology</td>
-          <td>Submitted</td>
         </tr>
         <tr>
           <td>Applied AI challenge entry</td>
-          <td>Global accelerated-computing platform vendor</td>
+          <td>NVIDIA Challenge</td>
           <td>GPU-accelerated perception for autonomous systems</td>
-          <td>Submitted</td>
         </tr>
         <tr>
           <td>Vision-language models for transportation</td>
           <td>TRB IDEA · National Academies</td>
           <td>Vision-language models applied to roadway scene understanding</td>
-          <td>Submitted</td>
         </tr>
       </tbody>
     </table>
@@ -1320,6 +1346,23 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
       "author": { "@id": "https://fahadmuhammad.com/#person" },
       "datePublished": "2026",
       "publisher": { "@type": "Organization", "name": "Transportation Research Board, 105th Annual Meeting" }
+    },
+    {
+      "@type": "Dataset",
+      "name": "GLANCE",
+      "alternateName": "GLANCE nighttime roadway glare dataset",
+      "description": "Nighttime roadway glare dataset pairing forward roadway video with synchronized eye-level photometric logging at 20 Hz, enabling glare events to be scored by light delivered to the driver rather than image brightness. Supports glare-event analysis, driver-response studies and autonomous vehicle perception benchmarking.",
+      "creator": { "@id": "https://fahadmuhammad.com/#person" },
+      "keywords": ["nighttime glare", "photometry", "driver visibility", "AV perception benchmarking", "roadway safety"],
+      "spatialCoverage": "Milwaukee, Wisconsin, United States"
+    },
+    {
+      "@type": "Dataset",
+      "name": "CrossTraj",
+      "description": "Bi-season multi-camera dataset of pedestrian and vehicle trajectories at a midblock crosswalk in Milwaukee, built with roadside cameras and deep-learning tracking, with RTK GNSS ground truth for trajectory-level evaluation of roadside perception systems.",
+      "creator": { "@id": "https://fahadmuhammad.com/#person" },
+      "keywords": ["pedestrian trajectory", "vehicle trajectory", "roadside perception", "RTK GNSS", "multi-object tracking"],
+      "spatialCoverage": "Milwaukee, Wisconsin, United States"
     },
     {
       "@type": "ScholarlyArticle",

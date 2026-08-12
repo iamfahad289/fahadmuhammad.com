@@ -35,48 +35,34 @@ All 17 publications are now listed in full, grouped as: Under review (3, TRB 202
 Conference proceedings (4), Journal articles (10). Per-paper citation counts come
 from Google Scholar.
 
-### Why 17 and 222, not 18 and 232
+### Publication counts
 
-Your Google Scholar profile currently shows 18 publications and 232 citations, but
-one entry is not yours:
-
-> "Comparative and functional analysis unveils the contribution of photoperiod to
-> DNA methylation, sRNA accumulation, and gene expression variations in short-day
-> and long-day grasses" — X Wu, S Chen, F Lin, F Muhammad, H Xu, L Wu,
-> *The Plant Journal* 118(6), 1955–1971, 2024 — 10 citations
-
-That is plant molecular biology by a different "F Muhammad". Scholar auto-attributed
-it. The arithmetic confirms it exactly: your own ten cited papers sum to 222, and
-222 + 10 = 232.
-
-That paper is also what lifts your h-index and i10-index from 8 to 9.
-
-Remove it from Scholar (Scholar profile → select the entry → Delete), after which
-Scholar will show 17 / 222 / h-index 8 / i10-index 8 and match this site exactly.
-
-## Design notes
-
-Accent colours are the two LED spectra that won the WisDOT field study:
-
-- `--beam: #2C8FFC` — Blue Baseline, controller RGB 129 / 420.75 / 741 on the 0–750 scale
-- `--ice: #1BB1FF` — Ice Blue, controller RGB 80 / 520 / 750
-- `--halogen: #F2B23E` — the 4000 K neutral-white reference it outperformed
-
-Display face is Overpass, which is based on FHWA Highway Gothic — the lettering used
-on US road signs. Body is IBM Plex Sans; data and labels are IBM Plex Mono.
+The mis-attributed plant-biology paper has been removed from Google Scholar, so
+Scholar and this site now agree: 17 publications, 222 citations, h-index 8,
+i10-index 8.
 
 ## Proposals section
 
-`#proposals` lives at the end of the Roles section. Six proposals are listed; only the
-WisDOT crosswalk entry is marked "Awarded & delivered" — the other five say "Submitted".
-Correct any that were awarded, declined, or are still in preparation by editing the
-fourth column. The `class="win"` on a row is what gives it the blue highlight, so move
-that attribute if another proposal gets funded.
+`#proposals` lives at the end of the Roles section. Six proposals, three columns
+(Proposal / Program / Focus) — no status column. The WisDOT row carries `class="win"`
+for the blue highlight because it is the funded one; the intro paragraph above the
+table is what states that. Move `class="win"` if another proposal gets funded.
 
-The accelerated-computing vendor challenge is described generically rather than by name,
-per your instruction not to name target companies on the site. Since this is proposal
-work you actually did rather than a pitch, naming it is defensible if you prefer —
-edit the "Program / sponsor" cell.
+NVIDIA is named in the sponsor column. This is the only company named on the site,
+and it appears as a factual proposal sponsor rather than as a target employer.
+
+## Research programs
+
+Six cards in `#research`: CrossTraj, roadside perception evaluation framework,
+CrossRisk, USDOT TRAVELS rural autonomy, GLANCE (nighttime glare dataset), and
+human-executable connected-vehicle speed advisories.
+
+GLANCE and CrossTraj are both declared as schema.org `Dataset` entities in the
+JSON-LD block, which is what makes them eligible for Google Dataset Search. Once
+either is publicly released, add a `distribution` and `url` field to its entity.
+
+The speed advisory project is tagged "In progress". Update the card and add a tag
+when results exist.
 
 ## Still to confirm
 
