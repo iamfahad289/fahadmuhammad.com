@@ -315,6 +315,18 @@ td .num{font-family:var(--mono)}
 .kv b{display:block;font-family:var(--display);font-size:22px;font-weight:800;color:var(--ice)}
 .kv span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-top:5px}
 
+/* ── outcome callout ──────────────────────────────────────── */
+.outcome{
+  margin:24px 0 0;padding:18px 20px;border-radius:10px;
+  border:1px solid var(--line);border-left:3px solid var(--ice);
+  background:rgba(27,177,255,.05);
+}
+.outcome-k{
+  font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ice);margin:0 0 8px;
+}
+.outcome-v{font-size:14.5px;color:#B9C4D0;margin:0;line-height:1.6}
+
 /* ── contact ──────────────────────────────────────────────── */
 .contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px}
 .links li{list-style:none;padding:11px 0;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;gap:16px;font-size:14.5px}
@@ -500,7 +512,7 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
       <div class="ev-k">Original contributions
         <small>Of major significance</small></div>
       <div class="ev-v">Field evidence that blue-spectrum crosswalk lighting extends driver detection
-        distance, now written into planning-level design guidance for Wisconsin DOT; CrossTraj, a
+        distance, delivered to the Wisconsin DOT as planning-level design guidance; CrossTraj, a
         bi-season pedestrian–vehicle trajectory dataset; GLANCE, the first dataset to score nighttime
         glare by light delivered to the driver's eye rather than image brightness; and a
         trajectory-level evaluation framework for roadside perception systems.</div>
@@ -579,6 +591,15 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
         would happen. A CNN pipeline located the exact frame each driver first recognized the
         pedestrian from infrared face video, then synchronized it against 125 Hz GPS, speed and
         brake records to recover reaction time and detection distance.</p>
+
+      <div class="outcome">
+        <p class="outcome-k">Where it ended up</p>
+        <p class="outcome-v">The findings were delivered to the Wisconsin DOT Project Oversight
+          Committee as planning-level design guidance — mounting height and lateral offset scaled to
+          roadway width, detection distance predicted by regression, then screened against AASHTO
+          stopping sight distance before installation. Demonstrated live to the committee at both
+          study sites and presented at the SE Wisconsin Transportation Symposium 2025.</p>
+      </div>
 
       <div class="cta">
         <a class="btn solid" href="https://iamfahad289.github.io/Enhanced-Light-Crosswalk-Illumination/" target="_blank" rel="noopener">Open the full study →</a>
@@ -801,8 +822,10 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
   <div class="head">
     <p class="eyebrow">Scholarly articles</p>
     <h2>Publications</h2>
-    <p>17 publications · 222 citations · h-index 8 · i10-index 8. Citation counts below are per-paper
-      figures from
+    <p>17 publications · 222 citations · h-index 8 · i10-index 8 — and 170 of those citations have
+      accrued since 2021, so the work is being used now rather than historically. Three papers appear
+      in <span style="color:#A9B6C4">IEEE Transactions on Intelligent Transportation Systems</span>,
+      a Q1 journal with an impact factor of 8.4. Per-paper counts below are from
       <a href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>;
       also indexed on <a href="https://orcid.org/0009-0007-9854-8937" target="_blank" rel="noopener">ORCID 0009-0007-9854-8937</a>.</p>
   </div>
@@ -1001,10 +1024,12 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
     </div>
 
     <div class="card rv">
-      <h3>Selected for presentation at TRB 2026</h3>
-      <p class="mono" style="font-size:12.5px;color:var(--ice);margin:6px 0 10px">National Academies of Sciences, Engineering, and Medicine</p>
-      <p>Two first-author papers accepted to the world's largest gathering of transportation
-        researchers, presented in Washington, D.C.
+      <h3>Accepted at TRB and ASCE ICTD — 2026</h3>
+      <p class="mono" style="font-size:12.5px;color:var(--ice);margin:6px 0 10px">National Academies of Sciences, Engineering, and Medicine · ASCE</p>
+      <p>First-author work selected for the Transportation Research Board Annual Meeting — the
+        world's largest gathering of transportation researchers — and presented in Washington, D.C.,
+        alongside first-author acceptance at the ASCE International Conference on Transportation
+        &amp; Development. Three further manuscripts are under review for TRB 2027.
         <a href="https://uwm.edu/engineering/ipit-researchers-including-students-present-a-bevy-of-papers-at-national-conference/" target="_blank" rel="noopener">UWM announcement →</a></p>
     </div>
   </div>
@@ -1089,8 +1114,9 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
       <p class="mono" style="font-size:12.5px;color:var(--ice);margin:6px 0 10px">Wisconsin Department of Transportation · ~$125K</p>
       <p>Authored the winning proposal, then led experimental design, instrumentation, nighttime
         field deployment across two cities, the eye-tracking analysis pipeline, and the design
-        guidance delivered to the WisDOT Project Oversight Committee. Demonstrated the system live
-        to the committee at both sites and at the SE Wisconsin Transportation Symposium 2025.</p>
+        guidance delivered to the Project Oversight Committee. Directed a research team spanning two
+        universities — UW–Milwaukee and UW–Madison — alongside an industry partner, coordinating
+        graduate researchers across both campuses through two years of field seasons.</p>
     </div>
 
     <div class="card rv">
@@ -1354,7 +1380,7 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
       <a href="#press">Press</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div>© <span id="yr"></span> Muhammad Fahad · Milwaukee, Wisconsin</div>
+    <div>© <span id="yr">2026</span> Muhammad Fahad · Milwaukee, Wisconsin</div>
   </div>
 </footer>
 

@@ -90,6 +90,29 @@ profile and edit `.impact` and the hero stat label together if it has changed �
 a paper currently at 8 citations gaining one more would legitimately return you
 to 9.
 
+## Send these and the page gets stronger
+
+Each of these maps to a criterion the page currently states weakly or not at all:
+
+1. **Peer review venues + count.** Journal and conference names, roughly how many
+   manuscripts, and since when. Check your ORCID review record or editor invitation
+   emails. This is the weakest section on the page right now.
+2. **Invited talks and presentations.** Anything beyond TRB 2026 and the SE Wisconsin
+   Symposium — guest lectures, seminars, panels, industry talks.
+3. **Teaching and mentoring.** Courses taught or assisted; undergraduate or masters
+   students supervised, by name and project. Mentoring is direct evidence of a
+   leading role.
+4. **Editorial roles.** Any technical committee membership, session chairing, or
+   programme committee service.
+5. **Awards detail.** For each award: the awarding body, year, number of recipients,
+   and the pool competed against. "One of three selected from 400 graduate students"
+   is far stronger than the award name alone.
+6. **IEEE membership grade** — Student Member, Member, or Senior Member. Senior Member
+   requires nomination and review, so it counts for considerably more.
+7. **Expert evaluator's name and credential** for the Top 1% claim.
+8. **Dataset access.** Once CrossTraj or GLANCE is downloadable, the URL — a dataset
+   others can actually use is much better evidence than one only described.
+
 ## Still to confirm
 
 1. **NSF I-Corps** — written as I-Corps (Milwaukee I-Corps program, five workshops).
