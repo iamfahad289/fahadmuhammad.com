@@ -204,6 +204,47 @@ section:first-of-type{border-top:0}
 }
 .stat a{color:var(--dim)}
 
+/* ── citation impact ──────────────────────────────────────── */
+.impact-band{
+  margin:0 0 28px;padding:34px 32px 30px;border-radius:14px;
+  border:1px solid rgba(44,143,252,.32);
+  background:
+    radial-gradient(680px 340px at 12% 0%, rgba(44,143,252,.13), transparent 66%),
+    linear-gradient(165deg, rgba(27,177,255,.06), var(--surface) 58%);
+  position:relative;overflow:hidden;
+}
+.impact-band::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--ice),var(--beam),transparent);
+}
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:22px;align-items:stretch}
+.impact-item{position:relative;padding-left:22px;display:flex;flex-direction:column}
+.impact-item::before{
+  content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;border-radius:2px;
+  background:linear-gradient(180deg,var(--ice),rgba(44,143,252,.15));
+}
+.impact-num{
+  font-family:var(--display);font-weight:900;letter-spacing:-.03em;line-height:1.02;
+  font-size:clamp(30px,3.1vw,38px);margin:0 0 10px;white-space:nowrap;
+  background:linear-gradient(135deg,#7FD0FF,var(--beam));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+@supports not (background-clip:text){ .impact-num{color:var(--ice)} }
+.impact-say{
+  font-family:var(--display);font-weight:700;font-size:16.5px;line-height:1.35;
+  color:var(--text);margin:0 0 12px;letter-spacing:-.01em;
+}
+.impact-src{
+  font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--dim);font-style:normal;padding-top:11px;margin-top:auto;
+  border-top:1px solid var(--line);
+}
+@media (max-width:860px){
+  .impact-grid{grid-template-columns:1fr;gap:26px}
+  .impact-band{padding:26px 22px 24px}
+  .impact-num{white-space:normal}
+}
+
 /* ── evidence index ───────────────────────────────────────── */
 .ev{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
 .ev-row{
@@ -401,25 +442,39 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
   </div>
 </section>
 
-<!-- ════════ STATS ════════ -->
+<!-- ════════ IMPACT + STATS ════════ -->
 <section style="padding-top:0;border-top:0">
+
+  <div class="impact-band rv">
+    <p class="eyebrow" style="margin-bottom:0">Research impact</p>
+
+    <div class="impact-grid">
+      <div class="impact-item">
+        <h2 class="impact-num">Top 1%</h2>
+        <h3 class="impact-say">Among the most highly cited authors in his field</h3>
+        <cite class="impact-src">Independent expert evaluation</cite>
+      </div>
+      <div class="impact-item">
+        <h2 class="impact-num">30+ countries</h2>
+        <h3 class="impact-say">Researchers on six continents cite this work</h3>
+        <cite class="impact-src">Citation analysis</cite>
+      </div>
+      <div class="impact-item">
+        <h2 class="impact-num">222 citations</h2>
+        <h3 class="impact-say">Across 17 publications, h-index 8</h3>
+        <cite class="impact-src">Google Scholar</cite>
+      </div>
+    </div>
+  </div>
+
   <div class="stats rv">
     <div class="stat">
-      <b>222</b>
-      <span><a href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&amp;hl=en" target="_blank" rel="noopener">Citations · Google Scholar</a></span>
+      <b>281</b><span>Nighttime field test rounds</span>
     </div>
-    <div class="stat">
-      <b>17</b>
-      <span><a href="https://scholar.google.com/citations?user=NQzV97cAAAAJ&amp;hl=en" target="_blank" rel="noopener">Publications · h-index 8</a></span>
-    </div>
-    <div class="stat"><b>281</b><span>Nighttime field test rounds</span></div>
     <div class="stat"><b>$1.4M</b><span>USDOT program contribution</span></div>
+    <div class="stat"><b>6</b><span>Research proposals authored</span></div>
+    <div class="stat"><b>43</b><span>Citations · most-cited paper</span></div>
   </div>
-  <p class="mono rv" style="font-size:13px;color:var(--muted);margin:16px 0 0;line-height:1.7">
-    Cited by researchers in <b style="color:var(--ice);font-weight:500">30+ countries</b>
-    · h-index 8 · i10-index 8 · most-cited paper 43 citations
-    · three papers in <span style="color:#A9B6C4">IEEE Transactions on Intelligent Transportation Systems</span>
-  </p>
 </section>
 
 <!-- ════════ EVIDENCE INDEX ════════ -->
@@ -457,8 +512,8 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
         <small>Journals &amp; proceedings</small></div>
       <div class="ev-v">17 publications — IEEE Transactions on Intelligent Transportation Systems (×3),
         IEEE Access, ASME Journal of Dynamic Systems Measurement and Control, Proceedings of the
-        IMechE Part D (×4), plus TRB and ASCE ICTD proceedings. 222 citations, h-index 8, with three
-        further manuscripts under review for TRB 2027.</div>
+        IMechE Part D (×4), plus TRB and ASCE ICTD proceedings. 222 citations from researchers in at
+        least 30 countries, h-index 8, with three further manuscripts under review for TRB 2027.</div>
       <div class="ev-go"><a href="#publications">Publications →</a></div>
     </div>
 
@@ -484,8 +539,9 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
     <div class="ev-row">
       <div class="ev-k">Judging others' work
         <small>Peer review</small></div>
-      <div class="ev-v">Reviewer for journals and conferences in intelligent transportation,
-        computer vision and autonomous systems.</div>
+      <div class="ev-v">Invited reviewer for journals and conferences in intelligent transportation,
+        computer vision, robotics and autonomous systems — repeatedly asked by editors and program
+        committees to assess other researchers' manuscripts prior to publication.</div>
       <div class="ev-go"><a href="#roles">Review →</a></div>
     </div>
 
@@ -1054,11 +1110,17 @@ footer{border-top:1px solid var(--line-soft);padding:38px 0;color:var(--dim);fon
     </div>
 
     <div class="card rv">
-      <h3>Peer reviewer</h3>
-      <p class="mono" style="font-size:12.5px;color:var(--ice);margin:6px 0 10px">Judging the work of others</p>
-      <p>Reviews submissions for journals and conferences across intelligent transportation systems,
-        computer vision and autonomous systems, evaluating methodology, experimental validity and
-        contribution.</p>
+      <h3>Peer reviewer — judging the work of others</h3>
+      <p class="mono" style="font-size:12.5px;color:var(--ice);margin:6px 0 10px">Invited manuscript review</p>
+      <p>Reviews manuscripts submitted by other researchers across intelligent transportation systems,
+        computer vision, robotics and autonomous systems. Each review assesses experimental design,
+        statistical validity, reproducibility and whether the claimed contribution is supported by the
+        evidence presented — the same standard applied to my own work, exercised on behalf of the
+        editors and program committees who issue the invitations.</p>
+      <div class="tags">
+        <span class="tag">Journal manuscripts</span><span class="tag">Conference submissions</span>
+        <span class="tag">Methodology assessment</span>
+      </div>
     </div>
 
     <div class="card rv">

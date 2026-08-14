@@ -64,6 +64,32 @@ either is publicly released, add a `distribution` and `url` field to its entity.
 The speed advisory project is tagged "In progress". Update the card and add a tag
 when results exist.
 
+## Citation impact block
+
+Sits directly under the hero stats (`.impact`). Three claims, each with a source label:
+
+- **Top 1%** — labelled "Expert assessment". Replace this label with the actual
+  evaluator's name and credential (e.g. "Prof. J. Smith, independent expert
+  evaluation, 2026"). An attributed percentile is evidence; an unattributed one
+  is an assertion, and reviewers treat the two very differently.
+- **30+ countries** — labelled "Citation analysis". Name the tool if you have it
+  (Scopus, Web of Science, etc.).
+- **h-index 8** — labelled "Google Scholar".
+
+### h-index: 8 or 9
+
+Your own papers, sorted by citations: 43, 31, 30, 29, 27, 19, 18, 13, 8, 4.
+The 9th has 8 citations, which is fewer than 9, so h-index = 8.
+
+Adding the plant-biology paper (10 citations) back in makes the 9th value 10,
+which gives h-index = 9. That paper was the only thing producing the 9, and you
+have removed it from Scholar.
+
+So whatever number appears here must match what Scholar shows today. Check the
+profile and edit `.impact` and the hero stat label together if it has changed —
+a paper currently at 8 citations gaining one more would legitimately return you
+to 9.
+
 ## Still to confirm
 
 1. **NSF I-Corps** — written as I-Corps (Milwaukee I-Corps program, five workshops).
